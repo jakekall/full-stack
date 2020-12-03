@@ -1,0 +1,19 @@
+käyttäjä->selain:
+note left of selain
+käyttäjä painaa Talleta nappia
+end note
+note right of selain
+selain lähettää lomakkeen tiedot palvelimelle js-koodin avulla
+end note
+selain->palvelin : POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+note left of palvelin 
+palvelin luo uuden muistiinpanon ja asettaa sen taulukkoon
+end note
+palvelin->selain : status 201
+note right of selain
+selaimen js-koodi lisää uuden muistiinpanon sivun HTML-koodiin
+end note
+note left of selain
+käyttäjä näkee sivun, 
+johon on lisätty uusi muistiinpano
+end note

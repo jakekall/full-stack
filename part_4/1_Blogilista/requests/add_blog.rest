@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RpMiIsImlkIjoiNWI2YzlkM2Q2NGFjNjY0OGIwYjM3YmI5IiwiaWF0IjoxNTMzODQ4OTgzfQ.Qob2uYDzyvFUVw-VZjSYHvzLAz4lT6q8SX4f6i9HCZs
+
+{
+  "title": "Taas uusi blogi",
+  "author": "Testi2",
+  "url": "testiurl.com",
+  "likes": 333
+}
