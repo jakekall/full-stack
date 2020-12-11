@@ -8,11 +8,14 @@ interface Result {
   average: number;
 }
 
-const calculateExercises = (period: number[], target: number): Result => {
+export const calculateExercises = (
+  period: number[],
+  target: number
+): Result => {
   const periodLength = period.length;
   let trainingDays = 0;
   let totalHours = 0;
-  for (let hours of period) {
+  for (const hours of period) {
     if (hours > 0) {
       trainingDays++;
       totalHours += hours;
@@ -51,7 +54,7 @@ interface ExerciseValues {
   target: number;
 }
 
-const parseExerciseArguments = (args: string[]): ExerciseValues => {
+const parseArguments = (args: string[]): ExerciseValues => {
   if (args.length < 4) throw new Error('Not enough arguments');
 
   const inputs = args.slice(2, args.length).map((value) => Number(value));
@@ -66,8 +69,9 @@ const parseExerciseArguments = (args: string[]): ExerciseValues => {
 };
 
 try {
-  const { period, target } = parseExerciseArguments(process.argv);
+  const { period, target } = parseArguments(process.argv);
   console.log(calculateExercises(period, target));
 } catch (e) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   console.log(e.message);
 }

@@ -1,4 +1,4 @@
-const calculateBmi = (height: number, mass: number) => {
+export const calculateBmi = (height: number, mass: number): string => {
   const heightInMeters = height / 100;
   const bmi = mass / (heightInMeters * heightInMeters);
 
@@ -8,7 +8,7 @@ const calculateBmi = (height: number, mass: number) => {
     return 'Normal (healthy weight)';
   } else if (bmi <= 30) {
     return 'Overweight (unhealthy weight)';
-  } else if (bmi > 30) {
+  } else {
     return 'Obese (unhealthy weight)';
   }
 };
@@ -18,7 +18,7 @@ interface BmiValues {
   mass: number;
 }
 
-const parseBmiArguments = (args: string[]): BmiValues => {
+const parseArguments = (args: string[]): BmiValues => {
   if (args.length < 4) throw new Error('Not enough arguments');
   if (args.length > 4) throw new Error('Too many arguments');
 
@@ -33,8 +33,9 @@ const parseBmiArguments = (args: string[]): BmiValues => {
 };
 
 try {
-  const { height, mass } = parseBmiArguments(process.argv);
+  const { height, mass } = parseArguments(process.argv);
   console.log(calculateBmi(height, mass));
 } catch (e) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   console.log(e.message);
 }
