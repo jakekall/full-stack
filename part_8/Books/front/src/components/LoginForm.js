@@ -13,6 +13,7 @@ const LoginForm = ({ setToken, show }) => {
       const token = result.data.login.value
       setToken(token)
       localStorage.setItem('books-token', token)
+      window.location.reload()
     }
   }, [result.data]) // eslint-disable-line
 

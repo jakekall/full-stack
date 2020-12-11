@@ -1,24 +1,29 @@
-import React from 'react'
-import { useQuery } from '@apollo/client'
+import React, { useEffect, useState } from 'react'
+import { useLazyQuery } from '@apollo/client'
 import { ALL_BOOKS } from '../queries'
 
-const Books = (props) => {
-  const result = useQuery(ALL_BOOKS)
+const Books = ({ show }) => {
+  const [genre, setGenre] = useState('')
+  const [getBooks, { loading, data }] = useLazyQuery(ALL_BOOKS)
 
-  if (!props.show) {
+  useEffect(() => {
+    getBooks({ variables: { genre } })
+  }, [genre, getBooks])
+
+  if (!show) {
     return null
   }
 
-  if (result.loading) {
+  if (loading) {
     return <div>loading...</div>
   }
 
-  const books = result.data.allBooks
+  const books = data.allBooks
 
   return (
     <div>
       <h2>books</h2>
-
+      <p>{`in genre ${genre ? genre : 'all'}`}</p>
       <table>
         <tbody>
           <tr>
@@ -35,6 +40,13 @@ const Books = (props) => {
           ))}
         </tbody>
       </table>
+      <button onClick={() => setGenre('refactoring')}>refactoring</button>
+      <button onClick={() => setGenre('agile')}>agile</button>
+      <button onClick={() => setGenre('patterns')}>patterns</button>
+      <button onClick={() => setGenre('design')}>design</button>
+      <button onClick={() => setGenre('crime')}>crime</button>
+      <button onClick={() => setGenre('classic')}>classic</button>
+      <button onClick={() => setGenre('')}>all genres</button>
     </div>
   )
 }

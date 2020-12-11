@@ -33,6 +33,10 @@ const Authors = (props) => {
 
   const authors = result.data.allAuthors
 
+  if (authors.length > 0 && !author) {
+    setAuthor(authors[0].name)
+  }
+
   return (
     <div>
       <h2>authors</h2>
@@ -60,9 +64,6 @@ const Authors = (props) => {
             value={author}
             onChange={({ target }) => setAuthor(target.value)}
           >
-            <option value="" selected disabled hidden>
-              Choose author
-            </option>
             {authors.map((a) => (
               <option key={a.name} value={a.name}>
                 {a.name}
@@ -85,3 +86,4 @@ const Authors = (props) => {
 }
 
 export default Authors
+

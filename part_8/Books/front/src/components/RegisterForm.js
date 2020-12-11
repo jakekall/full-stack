@@ -14,6 +14,8 @@ const RegisterForm = ({ show }) => {
     register({
       variables: { username, favoriteGenre },
     })
+    setUsername('')
+    setfavoriteGenre('')
   }
 
   if (!show) {
