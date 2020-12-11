@@ -95,14 +95,11 @@ const resolvers = {
       }
       return Book.find({}).populate('author')
     },
-    allAuthors: () => Author.find({}),
+    allAuthors: () => {
+      return Author.find({})
+    },
     me: (_root, _args, context) => {
       return context.currentUser
-    },
-  },
-  Author: {
-    bookCount: (root) => {
-      return Book.countDocuments({ author: root._id })
     },
   },
   Mutation: {
@@ -112,15 +109,19 @@ const resolvers = {
       }
       let author = await Author.findOne({ name: args.author })
       if (!author) {
-        author = new Author({ name: args.author })
-        try {
-          await author.save()
-        } catch (error) {
-          throw new UserInputError(error.message, {
-            invalidArgs: args,
-          })
-        }
+        author = new Author({ name: args.author, bookCount: 0 })
       }
+
+      author.bookCount = author.bookCount + 1
+
+      try {
+        await author.save()
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
+
       const book = new Book({
         title: args.title,
         published: args.published,
